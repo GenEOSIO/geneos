@@ -40,3 +40,9 @@ Restart nodeos
 ```
 $ nodeos --resync
 ```
+
+## Connect from wallet 
+
+```
+$ cleos -u http://192.168.56.101:8888 get info
+```

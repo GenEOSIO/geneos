@@ -1,4 +1,4 @@
-# geneos
+# GENEOS
 
 ## Set up GENEOS
 

@@ -33,7 +33,7 @@ plugin = eosio::producer_plugin
 plugin = eosio::wallet_api_plugin
 plugin = eosio::chain_api_plugin
 plugin = eosio::http_plugin
-plugin = eosio::account_history_api_plugin
+plugin = eosio::history_api_plugin
 ```
 Restart nodeos
 

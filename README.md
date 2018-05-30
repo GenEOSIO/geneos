@@ -44,5 +44,5 @@ $ nodgeneos --resync
 ## Connect from wallet 
 
 ```
-$ cleos -u http://192.168.56.101:8888 get info
+$ clgeneos -u http://192.168.56.101:8888 get info
 ```

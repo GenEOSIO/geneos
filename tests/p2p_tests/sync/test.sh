@@ -54,7 +54,7 @@ fi
 
 total_nodes="${total_nodes:-`echo $pnodes`}"
 launcherPath="programs/eosio-launcher/eosio-launcher"
-clientPath="programs/cleos/cleos"
+clientPath="programs/clgeneos/clgeneos"
 
 rm -rf etc/eosio/node_* var/lib/* stage
 ls -l etc/eosio var/lib

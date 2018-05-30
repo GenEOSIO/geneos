@@ -24,7 +24,7 @@ class Utils:
     Debug=False
     FNull = open(os.devnull, 'w')
 
-    EosClientPath="programs/cleos/cleos"
+    EosClientPath="programs/clgeneos/clgeneos"
 
     EosWalletName="kgeneosd"
     EosWalletPath="programs/kgeneosd/"+ EosWalletName
@@ -818,7 +818,7 @@ class Node(object):
             Utils.Print("ERROR: Exception during accounts by key retrieval. %s" % (msg))
             return None
 
-    # Get actions mapped to an account (cleos get actions)
+    # Get actions mapped to an account (clgeneos get actions)
     def getActions(self, account, pos=-1, offset=-1):
         assert(isinstance(account, Account))
         assert(isinstance(pos, int))
@@ -859,7 +859,7 @@ class Node(object):
         return servants
 
     def getAccountEosBalanceStr(self, scope):
-        """Returns SYS currency0000 account balance from cleos get table command. Returned balance is string following syntax "98.0311 SYS". """
+        """Returns SYS currency0000 account balance from clgeneos get table command. Returned balance is string following syntax "98.0311 SYS". """
         assert isinstance(scope, str)
         if not self.enableMongo:
             amount=self.getTableAccountBalance("eosio.token", scope)
@@ -879,7 +879,7 @@ class Node(object):
         return None
 
     def getAccountEosBalance(self, scope):
-        """Returns SYS currency0000 account balance from cleos get table command. Returned balance is an integer e.g. 980311. """
+        """Returns SYS currency0000 account balance from clgeneos get table command. Returned balance is an integer e.g. 980311. """
         balanceStr=self.getAccountEosBalanceStr(scope)
         balance=Node.currencyStrToInt(balanceStr)
         return balance
@@ -1025,7 +1025,7 @@ class Node(object):
         return False if info is None else True
 
     def getHeadBlockNum(self):
-        """returns head block number(string) as returned by cleos get info."""
+        """returns head block number(string) as returned by clgeneos get info."""
         if not self.enableMongo:
             info=self.getInfo()
             if info is not None:

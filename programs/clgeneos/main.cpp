@@ -9,16 +9,16 @@
 /**
   @defgroup eosclienttool
 
-  @section intro Introduction to cleos
+  @section intro Introduction to clgeneos
 
-  `cleos` is a command line tool that interfaces with the REST api exposed by @ref nodgeneos. In order to use `cleos` you will need to
+  `clgeneos` is a command line tool that interfaces with the REST api exposed by @ref nodgeneos. In order to use `clgeneos` you will need to
   have a local copy of `nodgeneos` running and configured to load the 'eosio::chain_api_plugin'.
 
-   cleos contains documentation for all of its commands. For a list of all commands known to cleos, simply run it with no arguments:
+   clgeneos contains documentation for all of its commands. For a list of all commands known to clgeneos, simply run it with no arguments:
 ```
-$ ./cleos
+$ ./clgeneos
 Command Line Interface to EOSIO Client
-Usage: programs/cleos/cleos [OPTIONS] SUBCOMMAND
+Usage: programs/clgeneos/clgeneos [OPTIONS] SUBCOMMAND
 
 Options:
   -h,--help                   Print this help message and exit
@@ -45,17 +45,17 @@ Subcommands:
 ```
 To get help with any particular subcommand, run it with no arguments as well:
 ```
-$ ./cleos create
+$ ./clgeneos create
 Create various items, on and off the blockchain
-Usage: ./cleos create SUBCOMMAND
+Usage: ./clgeneos create SUBCOMMAND
 
 Subcommands:
   key                         Create a new keypair and print the public and private keys
   account                     Create a new account on the blockchain
 
-$ ./cleos create account
+$ ./clgeneos create account
 Create a new account on the blockchain
-Usage: ./cleos create account [OPTIONS] creator name OwnerKey ActiveKey
+Usage: ./clgeneos create account [OPTIONS] creator name OwnerKey ActiveKey
 
 Positionals:
   creator TEXT                The name of the account creating the new account
@@ -746,10 +746,10 @@ void ensure_kgeneosd_running() {
 
     boost::filesystem::path binPath = boost::dll::program_location();
     binPath.remove_filename();
-    // This extra check is necessary when running cleos like this: ./cleos ...
+    // This extra check is necessary when running clgeneos like this: ./clgeneos ...
     if (binPath.filename_is_dot())
         binPath.remove_filename();
-    binPath.append("kgeneosd"); // if cleos and kgeneosd are in the same installation directory
+    binPath.append("kgeneosd"); // if clgeneos and kgeneosd are in the same installation directory
     if (!boost::filesystem::exists(binPath)) {
         binPath.remove_filename().remove_filename().append("kgeneosd").append("kgeneosd");
     }

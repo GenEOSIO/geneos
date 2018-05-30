@@ -75,7 +75,7 @@ namespace eosio { namespace client { namespace http {
    const string wallet_import_key = wallet_func_base + "/import_key";
    const string wallet_create_key = wallet_func_base + "/create_key";
    const string wallet_sign_trx = wallet_func_base + "/sign_transaction";
-   const string keosd_stop = "/v1/keosd/stop";
+   const string kgeneosd_stop = "/v1/kgeneosd/stop";
 
    FC_DECLARE_EXCEPTION( connection_exception, 1100000, "Connection Exception" );
  }}}

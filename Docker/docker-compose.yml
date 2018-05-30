@@ -20,17 +20,17 @@ services:
     volumes:
       - nodgeneos-data-volume:/opt/eosio/bin/data-dir
 
-  keosd:
+  kgeneosd:
     image: eosio/eos
-    command: /opt/eosio/bin/keosd --wallet-dir /opt/eosio/bin/data-dir
-    hostname: keosd
+    command: /opt/eosio/bin/kgeneosd --wallet-dir /opt/eosio/bin/data-dir
+    hostname: kgeneosd
     links:
       - nodgeneosd
     volumes:
-      - keosd-data-volume:/opt/eosio/bin/data-dir
+      - kgeneosd-data-volume:/opt/eosio/bin/data-dir
 
 volumes:
   nodgeneos-data-volume:
     external: true
-  keosd-data-volume:
+  kgeneosd-data-volume:
     external: true

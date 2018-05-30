@@ -8,7 +8,7 @@ cd geneos
 ./eosio_build.sh
 ```
 
-run nodgeneos
+Run nodgeneos
 ```
 $ nodgeneos
 ```

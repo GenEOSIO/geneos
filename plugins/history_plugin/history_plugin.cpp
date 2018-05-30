@@ -270,7 +270,7 @@ namespace eosio {
          for( auto& s : fo ) {
             if( s == "*" ) {
                my->bypass_filter = true;
-               wlog("--filter-on * enabled. This can fill shared_mem, causing nodeos to stop.");
+               wlog("--filter-on * enabled. This can fill shared_mem, causing nodgeneos to stop.");
                break;
             }
             std::vector<std::string> v;

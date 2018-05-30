@@ -9,10 +9,10 @@ services:
     volumes:
       - mongo-data-volume:/data/db
 
-  nodeosd:
+  nodgeneosd:
     image: eosio/eos:latest
-    command: /opt/eosio/bin/nodeosd.sh --data-dir /opt/eosio/bin/data-dir --resync #--mongodb-uri mongodb://mongo:27017/EOS
-    hostname: nodeosd
+    command: /opt/eosio/bin/nodgeneosd.sh --data-dir /opt/eosio/bin/data-dir --resync #--mongodb-uri mongodb://mongo:27017/EOS
+    hostname: nodgeneosd
     links:
       - mongo
     ports:
@@ -21,21 +21,21 @@ services:
     expose:
       - "8888"
     volumes:
-      - nodeos-data-volume:/opt/eosio/bin/data-dir
+      - nodgeneos-data-volume:/opt/eosio/bin/data-dir
 
   keosd:
     image: eosio/eos:latest
     command: /opt/eosio/bin/keosd --wallet-dir /opt/eosio/bin/data-dir --http-server-address=127.0.0.1:8900
     hostname: keosd
     links:
-      - nodeosd
+      - nodgeneosd
     volumes:
       - keosd-data-volume:/opt/eosio/bin/data-dir
 
 volumes:
  mongo-data-volume:
    external: true
- nodeos-data-volume:
+ nodgeneos-data-volume:
    external: true
  keosd-data-volume:
    external: true

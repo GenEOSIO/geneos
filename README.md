@@ -17,7 +17,7 @@ Press Ctrl + C
 Edit config.ini
 
 ```
-$ vim ~/.local/share/eosio/nodgeneos/config/config.ini
+$ vim ~/.local/share/geneosio/nodgeneos/config/config.ini
 
 # Find and change ( This will be the IP you saved before, something like 192.168.56.101 )
 http-server-address = 192.168.56.101:8888
@@ -38,7 +38,7 @@ plugin = eosio::history_api_plugin
 Restart nodgeneos
 
 ```
-$ nodgeneos --resync
+$ nodgeneos --delete-all-blocks
 ```
 
 ## Connect from wallet 

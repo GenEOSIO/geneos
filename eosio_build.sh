@@ -36,7 +36,7 @@
 		exit 1
 	fi
 	if [ -f "${PWD}/CMakeCache.txt" ]; then
-		printf "\\n\\tPlease remove file %s/CMakeCache.txt before building EOSIO.\\n \\tExiting now.\\n\\n" "${PWD}"
+		printf "\\n\\tPlease remove file %s/CMakeCache.txt before building GENEOS.\\n \\tExiting now.\\n\\n" "${PWD}"
 		exit 1
 	fi
 
@@ -99,8 +99,7 @@
 
 	if [ ! -d .git ]; then
 		printf "\\n\\tThis build script only works with sources cloned from git\\n"
-		printf "\\tPlease clone a new eos directory with 'git clone https://github.com/EOSIO/eos --recursive'\\n"
-		printf "\\tSee the wiki for instructions: https://github.com/EOSIO/eos/wiki\\n"
+		printf "\\tPlease clone a new geneos directory with 'git clone https://github.com/GenEOSIO/geneos --recursive'\\n"
 		exit 1
 	fi
 
@@ -121,7 +120,7 @@
 	if [ "$ARCH" == "Linux" ]; then
 		
 		if [ ! -e /etc/os-release ]; then
-			printf "\\n\\tEOSIO currently supports Amazon, Centos, Fedora, Mint & Ubuntu Linux only.\\n"
+			printf "\\n\\tGENEOS currently supports Amazon, Centos, Fedora, Mint & Ubuntu Linux only.\\n"
 			printf "\\tPlease install on the latest version of one of these Linux distributions.\\n"
 			printf "\\thttps://aws.amazon.com/amazon-linux-ami/\\n"
 			printf "\\thttps://www.centos.org/\\n"
@@ -202,7 +201,7 @@
 
 	. "$FILE"
 
-	printf "\\n\\n>>>>>>>> ALL dependencies sucessfully found or installed . Installing EOSIO\\n\\n"
+	printf "\\n\\n>>>>>>>> ALL dependencies sucessfully found or installed . Installing GENEOS\\n\\n"
 	printf ">>>>>>>> CMAKE_BUILD_TYPE=%s\\n" "${CMAKE_BUILD_TYPE}"
 	printf ">>>>>>>> ENABLE_COVERAGE_TESTING=%s\\n" "${ENABLE_COVERAGE_TESTING}"
 	printf ">>>>>>>> DOXYGEN=%s\\n\\n" "${DOXYGEN}"
@@ -230,13 +229,13 @@
 		-DOPENSSL_ROOT_DIR="${OPENSSL_ROOT_DIR}" -DBUILD_MONGO_DB_PLUGIN=true \
 		-DENABLE_COVERAGE_TESTING="${ENABLE_COVERAGE_TESTING}" -DBUILD_DOXYGEN="${DOXYGEN}" ..
 	then
-		printf "\\n\\t>>>>>>>>>>>>>>>>>>>> CMAKE building EOSIO has exited with the above error.\\n\\n"
+		printf "\\n\\t>>>>>>>>>>>>>>>>>>>> CMAKE building GENEOS has exited with the above error.\\n\\n"
 		exit -1
 	fi
 
 	if ! make -j"${CPU_CORE}"
 	then
-		printf "\\n\\t>>>>>>>>>>>>>>>>>>>> MAKE building EOSIO has exited with the above error.\\n\\n"
+		printf "\\n\\t>>>>>>>>>>>>>>>>>>>> MAKE building GENEOS has exited with the above error.\\n\\n"
 		exit -1
 	fi
 	
@@ -251,16 +250,14 @@
 	printf "\t| |___| || (____/\| |  |  || (____/\| (___) |/\____) |\n"
 	printf "\t(_______/(_______/|_|   |_|(_______/(_______)\_______)\n${txtrst}"
 
-	printf "\\n\\tEOSIO has been successfully built. %02d:%02d:%02d\\n\\n" $(($TIME_END/3600)) $(($TIME_END%3600/60)) $(($TIME_END%60))
+	printf "\\n\\tGENEOS has been successfully built. %02d:%02d:%02d\\n\\n" $(($TIME_END/3600)) $(($TIME_END%3600/60)) $(($TIME_END%60))
 	printf "\\tTo verify your installation run the following commands:\\n"
 	
 	print_instructions
 
 	printf "\\tFor more information:\\n"
-	printf "\\tEOSIO website: https://eos.io\\n"
-	printf "\\tEOSIO Telegram channel @ https://t.me/EOSProject\\n"
-	printf "\\tEOSIO resources: https://eos.io/resources/\\n"
-	printf "\\tEOSIO wiki: https://github.com/EOSIO/eos/wiki\\n\\n\\n"
+	printf "\\tGENEOS website: http://geneos.io/stage1\\n"
+	printf "\\tGENEOS resources: https://github.com/GenEOSIO/geneos\\n"
 				
 	if [ "x${EOSIO_BUILD_PACKAGE}" != "x" ]; then
 	  # Build eos.io package

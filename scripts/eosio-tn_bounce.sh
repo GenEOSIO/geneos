@@ -13,8 +13,8 @@
 
 pushd $EOSIO_HOME
 
-if [ ! -f programs/nodeos/nodeos ]; then
-    echo unable to locate binary for nodeos
+if [ ! -f programs/nodgeneos/nodgeneos ]; then
+    echo unable to locate binary for nodgeneos
     exit 1
 fi
 

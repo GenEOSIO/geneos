@@ -30,8 +30,8 @@ class Utils:
     EosWalletName="keosd"
     EosWalletPath="programs/keosd/"+ EosWalletName
 
-    EosServerName="nodeos"
-    EosServerPath="programs/nodeos/"+ EosServerName
+    EosServerName="nodgeneos"
+    EosServerPath="programs/nodgeneos/"+ EosServerName
 
     EosLauncherPath="programs/eosio-launcher/eosio-launcher"
     MongoPath="mongo"
@@ -55,7 +55,7 @@ class Utils:
 
     systemWaitTimeout=90
 
-    # mongoSyncTime: nodeos mongodb plugin seems to sync with a 10-15 seconds delay. This will inject
+    # mongoSyncTime: nodgeneos mongodb plugin seems to sync with a 10-15 seconds delay. This will inject
     #  a wait period before the 2nd DB check (if first check fails)
     mongoSyncTime=25
 
@@ -1143,15 +1143,15 @@ class WalletMgr(object):
 
     # pylint: disable=too-many-arguments
     # walletd [True|False] True=Launch wallet(keosd) process; False=Manage launch process externally.
-    def __init__(self, walletd, nodeosPort=8888, nodeosHost="localhost", port=8899, host="localhost"):
+    def __init__(self, walletd, nodgeneosPort=8888, nodgeneosHost="localhost", port=8899, host="localhost"):
         self.walletd=walletd
-        self.nodeosPort=nodeosPort
-        self.nodeosHost=nodeosHost
+        self.nodgeneosPort=nodgeneosPort
+        self.nodgeneosHost=nodgeneosHost
         self.port=port
         self.host=host
         self.wallets={}
         self.__walletPid=None
-        self.endpointArgs="--url http://%s:%d" % (self.nodeosHost, self.nodeosPort)
+        self.endpointArgs="--url http://%s:%d" % (self.nodgeneosHost, self.nodgeneosPort)
         self.walletEndpointArgs=""
         if self.walletd:
             self.walletEndpointArgs += " --wallet-url http://%s:%d" % (self.host, self.port)
@@ -1415,15 +1415,15 @@ class Cluster(object):
         if self.staging:
             cmdArr.append("--nogen")
 
-        nodeosArgs="--max-transaction-time 5000 --filter-on *"
+        nodgeneosArgs="--max-transaction-time 5000 --filter-on *"
         if not self.walletd:
-            nodeosArgs += " --plugin eosio::wallet_api_plugin"
+            nodgeneosArgs += " --plugin eosio::wallet_api_plugin"
         if self.enableMongo:
-            nodeosArgs += " --plugin eosio::mongo_db_plugin --delete-all-blocks --mongodb-uri %s" % self.mongoUri
+            nodgeneosArgs += " --plugin eosio::mongo_db_plugin --delete-all-blocks --mongodb-uri %s" % self.mongoUri
 
-        if nodeosArgs:
-            cmdArr.append("--nodeos")
-            cmdArr.append(nodeosArgs)
+        if nodgeneosArgs:
+            cmdArr.append("--nodgeneos")
+            cmdArr.append(nodgeneosArgs)
 
         s=" ".join(cmdArr)
         if Utils.Debug: Utils.Print("cmd: %s" % (s))
@@ -2222,7 +2222,7 @@ class Cluster(object):
             Cluster.dumpErrorDetailImpl(fileName)
 
     def killall(self, silent=True, allInstances=False):
-        """Kill cluster nodeos instances. allInstances will kill all nodeos instances running on the system."""
+        """Kill cluster nodgeneos instances. allInstances will kill all nodgeneos instances running on the system."""
         cmd="%s -k 9" % (Utils.EosLauncherPath)
         if Utils.Debug: Utils.Print("cmd: %s" % (cmd))
         if 0 != subprocess.call(cmd.split(), stdout=Utils.FNull):

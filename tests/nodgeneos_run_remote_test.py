@@ -18,7 +18,7 @@ parser.add_argument("--only-bios", help="Limit testing to bios node.", action='s
 parser.add_argument("--dump-error-details",
                     help="Upon error print etc/eosio/node_*/config.ini and var/lib/node_*/stderr.log to stdout",
                     action='store_true')
-parser.add_argument("--kill-all", help="Kill all nodeos and kleos instances", action='store_true')
+parser.add_argument("--kill-all", help="Kill all nodgeneos and kleos instances", action='store_true')
 
 args = parser.parse_args()
 debug=args.v
@@ -35,7 +35,7 @@ delay=1
 prodCount=1 # producers per producer node
 pnodes=1
 total_nodes=pnodes
-actualTest="tests/nodeos_run_test.py"
+actualTest="tests/nodgeneos_run_test.py"
 testSuccessful=False
 
 cluster=testUtils.Cluster()
@@ -60,7 +60,7 @@ try:
     defproducerbPrvtKey=producerKeys["defproducerb"]["private"]
 
     cmd="%s --dont-launch --defproducera_prvt_key %s --defproducerb_prvt_key %s %s %s %s" % (actualTest, defproduceraPrvtKey, defproducerbPrvtKey, "-v" if debug else "", "--dont-kill" if dontKill else "", "--only-bios" if onlyBios else "")
-    Print("Starting up %s test: %s" % ("nodeos", actualTest))
+    Print("Starting up %s test: %s" % ("nodgeneos", actualTest))
     Print("cmd: %s\n" % (cmd))
     if 0 != subprocess.call(cmd, shell=True):
         errorExit("failed to run cmd.")

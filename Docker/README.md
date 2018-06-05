@@ -58,22 +58,22 @@ docker run --name nodgeneos -v /path-to-data-dir:/opt/eosio/bin/data-dir -p 8888
 curl http://127.0.0.1:8888/v1/chain/get_info
 ```
 
-## Start both nodgeneos and keosd containers
+## Start both nodgeneos and kgeneosd containers
 
 ```bash
 docker volume create --name=nodgeneos-data-volume
-docker volume create --name=keosd-data-volume
+docker volume create --name=kgeneosd-data-volume
 docker-compose up -d
 ```
 
-After `docker-compose up -d`, two services named `nodgeneosd` and `keosd` will be started. nodgeneos service would expose ports 8888 and 9876 to the host. keosd service does not expose any port to the host, it is only accessible to cleos when running cleos is running inside the keosd container as described in "Execute cleos commands" section.
+After `docker-compose up -d`, two services named `nodgeneosd` and `kgeneosd` will be started. nodgeneos service would expose ports 8888 and 9876 to the host. kgeneosd service does not expose any port to the host, it is only accessible to cleos when running cleos is running inside the kgeneosd container as described in "Execute cleos commands" section.
 
 ### Execute cleos commands
 
 You can run the `cleos` commands via a bash alias.
 
 ```bash
-alias cleos='docker-compose exec keosd /opt/eosio/bin/cleos -u http://nodgeneosd:8888 --wallet-url http://localhost:8888'
+alias cleos='docker-compose exec kgeneosd /opt/eosio/bin/cleos -u http://nodgeneosd:8888 --wallet-url http://localhost:8888'
 cleos get info
 cleos get account inita
 ```
@@ -84,10 +84,10 @@ Upload sample exchange contract
 cleos set contract exchange contracts/exchange/exchange.wast contracts/exchange/exchange.abi
 ```
 
-If you don't need keosd afterwards, you can stop the keosd service using
+If you don't need kgeneosd afterwards, you can stop the kgeneosd service using
 
 ```bash
-docker-compose stop keosd
+docker-compose stop kgeneosd
 ```
 
 ### Develop/Build custom contracts
@@ -128,7 +128,7 @@ The data volume created by docker-compose can be deleted as follows:
 
 ```bash
 docker volume rm nodgeneos-data-volume
-docker volume rm keosd-data-volume
+docker volume rm kgeneosd-data-volume
 ```
 
 ### Docker Hub
@@ -152,18 +152,18 @@ services:
     volumes:
       - nodgeneos-data-volume:/opt/eosio/bin/data-dir
 
-  keosd:
+  kgeneosd:
     image: eosio/eos:latest
-    command: /opt/eosio/bin/keosd
-    hostname: keosd
+    command: /opt/eosio/bin/kgeneosd
+    hostname: kgeneosd
     links:
       - nodgeneosd
     volumes:
-      - keosd-data-volume:/opt/eosio/bin/data-dir
+      - kgeneosd-data-volume:/opt/eosio/bin/data-dir
 
 volumes:
   nodgeneos-data-volume:
-  keosd-data-volume:
+  kgeneosd-data-volume:
 
 ```
 
@@ -185,7 +185,7 @@ docker pull eosio/eos:v1.0.1
 
 # create volume
 docker volume create --name=nodgeneos-data-volume
-docker volume create --name=keosd-data-volume
+docker volume create --name=kgeneosd-data-volume
 # start containers
 docker-compose -f docker-compose-eosio1.0.yaml up -d
 # get chain info

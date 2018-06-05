@@ -88,11 +88,11 @@ try:
     if not cluster.waitOnClusterBlockNumSync(3):
         errorExit("Cluster never stabilized")
 
-    Print("Stand up EOS wallet keosd")
+    Print("Stand up EOS wallet kgeneosd")
     walletMgr.killall(allInstances=killAll)
     walletMgr.cleanup()
     if walletMgr.launch() is False:
-        errorExit("Failed to stand up keosd.")
+        errorExit("Failed to stand up kgeneosd.")
 
     accountsCount=total_nodes
     walletName="MyWallet"

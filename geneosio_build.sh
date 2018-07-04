@@ -260,10 +260,6 @@
 	printf "\t| |___| || (____/\| |  |  || (____/\| (___) |/\____) |\n"
 	printf "\t(_______/(_______/|_|   |_|(_______/(_______)\_______)\n${txtrst}"
 
-	printf "\\n\\tGENEOS has been successfully built. %02d:%02d:%02d\\n\\n" $(($TIME_END/3600)) $(($TIME_END%3600/60)) $(($TIME_END%60))
-	printf "\\tTo verify your installation run the following commands:\\n"
-	
-	print_instructions
 
 	printf "\\tFor more information:\\n"
 	printf "\\tGENEOS website: https://geneos.io\\n"

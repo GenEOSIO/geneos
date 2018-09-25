@@ -61,8 +61,8 @@ $ ./nodgeneos -d ~/eos.data/generator_node --config-dir ~/eos.data/generator_nod
 
 ### Create a wallet on the non-producer and set bios contract
 ```bash
-$ ./cleos wallet create
-$ ./cleos set contract eosio ~/eos/build.release/contracts/eosio.bios/ 
+$ ./clgeneos wallet create
+$ ./clgeneos set contract eosio ~/eos/build.release/contracts/eosio.bios/ 
 ```
 
 ### Initialize the accounts txn_test_gen_plugin uses

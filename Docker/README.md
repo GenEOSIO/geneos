@@ -66,22 +66,22 @@ docker volume create --name=kgeneosd-data-volume
 docker-compose up -d
 ```
 
-After `docker-compose up -d`, two services named `nodgeneosd` and `kgeneosd` will be started. nodgeneos service would expose ports 8888 and 9876 to the host. kgeneosd service does not expose any port to the host, it is only accessible to cleos when running cleos is running inside the kgeneosd container as described in "Execute cleos commands" section.
+After `docker-compose up -d`, two services named `nodgeneosd` and `kgeneosd` will be started. nodgeneos service would expose ports 8888 and 9876 to the host. kgeneosd service does not expose any port to the host, it is only accessible to clgeneos when running clgeneos is running inside the kgeneosd container as described in "Execute clgeneos commands" section.
 
-### Execute cleos commands
+### Execute clgeneos commands
 
-You can run the `cleos` commands via a bash alias.
+You can run the `clgeneos` commands via a bash alias.
 
 ```bash
-alias cleos='docker-compose exec kgeneosd /opt/eosio/bin/cleos -u http://nodgeneosd:8888 --wallet-url http://localhost:8888'
-cleos get info
-cleos get account inita
+alias clgeneos='docker-compose exec kgeneosd /opt/eosio/bin/clgeneos -u http://nodgeneosd:8888 --wallet-url http://localhost:8888'
+clgeneos get info
+clgeneos get account inita
 ```
 
 Upload sample exchange contract
 
 ```bash
-cleos set contract exchange contracts/exchange/
+clgeneos set contract exchange contracts/exchange/
 ```
 
 If you don't need kgeneosd afterwards, you can stop the kgeneosd service using

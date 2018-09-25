@@ -33,7 +33,7 @@ class Utils:
     EosServerName="nodgeneos"
     EosServerPath="programs/nodgeneos/"+ EosServerName
 
-    EosLauncherPath="programs/eosio-launcher/eosio-launcher"
+    EosLauncherPath="programs/geneosio-launcher/geneosio-launcher"
     MongoPath="mongo"
 
     @staticmethod

@@ -66,7 +66,7 @@ verifyErrorCode()
 
 killAll()
 {
-  programs/eosio-launcher/eosio-launcher -k 15
+  programs/geneosio-launcher/geneosio-launcher -k 15
 }
 
 cleanup()
@@ -114,7 +114,7 @@ cleanup
 # stand up nodgeneos cluster
 launcherOpts="-p $pnodes -n $total_nodes -s $topo -d $delay"
 echo Launcher options: --nodgeneos \"--plugin eosio::wallet_api_plugin\" $launcherOpts
-programs/eosio-launcher/eosio-launcher --nodgeneos "--plugin eosio::wallet_api_plugin" $launcherOpts
+programs/geneosio-launcher/geneosio-launcher --nodgeneos "--plugin eosio::wallet_api_plugin" $launcherOpts
 sleep 7
 
 startPort=8888

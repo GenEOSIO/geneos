@@ -48,11 +48,11 @@ libraries/wasm-jit/Source/Programs/wavm
 programs/clgeneos/clgeneos
 programs/js_operation_serializer/js_operation_serializer
 programs/data-dir
-programs/eosio-abigen/eosio-abigen
+programs/geneosio-abigen/geneosio-abigen
 programs/clgeneos/config.hpp
-programs/eosio-applesedemo/eosio-applesedemo
-programs/eosio-launcher/config.hpp
-programs/eosio-launcher/eosio-launcher
+programs/geneosio-applesedemo/geneosio-applesedemo
+programs/geneosio-launcher/config.hpp
+programs/geneosio-launcher/geneosio-launcher
 programs/kgeneosd/kgeneosd
 programs/nodgeneos/config.hpp
 programs/nodgeneos/nodgeneos

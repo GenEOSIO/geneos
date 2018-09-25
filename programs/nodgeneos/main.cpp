@@ -96,13 +96,13 @@ int main(int argc, char** argv)
       app().register_plugin<history_plugin>();
 
       auto root = fc::app_path();
-      app().set_default_data_dir(root / "eosio/nodgeneos/data" );
-      app().set_default_config_dir(root / "eosio/nodgeneos/config" );
+      app().set_default_data_dir(root / "geneosio/nodgeneos/data" );
+      app().set_default_config_dir(root / "geneosio/nodgeneos/config" );
       if(!app().initialize<chain_plugin, http_plugin, net_plugin, producer_plugin>(argc, argv))
          return INITIALIZE_FAIL;
       initialize_logging();
       ilog("nodgeneos version ${ver}", ("ver", eosio::utilities::common::itoh(static_cast<uint32_t>(app().version()))));
-      ilog("eosio root is ${root}", ("root", root.string()));
+      ilog("geneosio root is ${root}", ("root", root.string()));
       app().startup();
       app().exec();
    } catch( const extract_genesis_state_exception& e ) {

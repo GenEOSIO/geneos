@@ -1,0 +1,6 @@
+add_subdirectory( nodgeneos )
+add_subdirectory( clgeneos )
+add_subdirectory( kgeneosd )
+add_subdirectory( geneosio-launcher )
+add_subdirectory( geneosio-applesedemo )
+add_subdirectory( geneosio-abigen )

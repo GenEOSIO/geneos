@@ -132,7 +132,7 @@ class producer_plugin_impl : public std::enable_shared_from_this<producer_plugin
       int32_t                                                   _max_transaction_time_ms;
       fc::microseconds                                          _max_irreversible_block_age_us;
       fc::time_point                                            _irreversible_block_time;
-      fc::microseconds                                          _keosd_provider_timeout_us;
+      fc::microseconds                                          _kgeneosd_provider_timeout_us;
 
       time_point _last_signed_block_time;
       time_point _start_time = fc::time_point::now();
@@ -427,9 +427,9 @@ void producer_plugin::set_program_options(
           "   <provider-spec> \tis a string in the form <provider-type>:<data>\n\n"
           "   <provider-type> \tis KEY, or KEOSD\n\n"
           "   KEY:<data>      \tis a string form of a valid EOSIO private key which maps to the provided public key\n\n"
-          "   KEOSD:<data>    \tis the URL where keosd is available and the approptiate wallet(s) are unlocked")
-         ("keosd-provider-timeout", boost::program_options::value<int32_t>()->default_value(5),
-          "Limits the maximum time (in milliseconds) that is allowd for sending blocks to a keosd provider for signing")
+          "   KEOSD:<data>    \tis the URL where kgeneosd is available and the approptiate wallet(s) are unlocked")
+         ("kgeneosd-provider-timeout", boost::program_options::value<int32_t>()->default_value(5),
+          "Limits the maximum time (in milliseconds) that is allowd for sending blocks to a kgeneosd provider for signing")
          ;
    config_file_options.add(producer_options);
 }
@@ -474,17 +474,17 @@ make_key_signature_provider(const private_key_type& key) {
 }
 
 static producer_plugin_impl::signature_provider_type
-make_keosd_signature_provider(const std::shared_ptr<producer_plugin_impl>& impl, const string& url_str, const public_key_type pubkey) {
-   auto keosd_url = fc::url(url_str);
+make_kgeneosd_signature_provider(const std::shared_ptr<producer_plugin_impl>& impl, const string& url_str, const public_key_type pubkey) {
+   auto kgeneosd_url = fc::url(url_str);
    std::weak_ptr<producer_plugin_impl> weak_impl = impl;
 
-   return [weak_impl, keosd_url, pubkey]( const chain::digest_type& digest ) {
+   return [weak_impl, kgeneosd_url, pubkey]( const chain::digest_type& digest ) {
       auto impl = weak_impl.lock();
       if (impl) {
          fc::variant params;
          fc::to_variant(std::make_pair(digest, pubkey), params);
-         auto deadline = impl->_keosd_provider_timeout_us.count() >= 0 ? fc::time_point::now() + impl->_keosd_provider_timeout_us : fc::time_point::maximum();
-         return app().get_plugin<http_client_plugin>().get_client().post_sync(keosd_url, params, deadline).as<chain::signature_type>();
+         auto deadline = impl->_kgeneosd_provider_timeout_us.count() >= 0 ? fc::time_point::now() + impl->_kgeneosd_provider_timeout_us : fc::time_point::maximum();
+         return app().get_plugin<http_client_plugin>().get_client().post_sync(kgeneosd_url, params, deadline).as<chain::signature_type>();
       } else {
          return signature_type();
       }
@@ -531,7 +531,7 @@ void producer_plugin::plugin_initialize(const boost::program_options::variables_
             if (spec_type_str == "KEY") {
                my->_signature_providers[pubkey] = make_key_signature_provider(private_key_type(spec_data));
             } else if (spec_type_str == "KEOSD") {
-               my->_signature_providers[pubkey] = make_keosd_signature_provider(my, spec_data, pubkey);
+               my->_signature_providers[pubkey] = make_kgeneosd_signature_provider(my, spec_data, pubkey);
             }
 
          } catch (...) {
@@ -540,7 +540,7 @@ void producer_plugin::plugin_initialize(const boost::program_options::variables_
       }
    }
 
-   my->_keosd_provider_timeout_us = fc::milliseconds(options.at("keosd-provider-timeout").as<int32_t>());
+   my->_kgeneosd_provider_timeout_us = fc::milliseconds(options.at("kgeneosd-provider-timeout").as<int32_t>());
 
    my->_max_transaction_time_ms = options.at("max-transaction-time").as<int32_t>();
 

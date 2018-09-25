@@ -1,6 +1,6 @@
 add_subdirectory( nodgeneos )
 add_subdirectory( cleos )
-add_subdirectory( keosd )
+add_subdirectory( kgeneosd )
 add_subdirectory( eosio-launcher )
 add_subdirectory( eosio-applesedemo )
 add_subdirectory( eosio-abigen )

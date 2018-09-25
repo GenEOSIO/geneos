@@ -53,7 +53,7 @@ programs/cleos/config.hpp
 programs/eosio-applesedemo/eosio-applesedemo
 programs/eosio-launcher/config.hpp
 programs/eosio-launcher/eosio-launcher
-programs/keosd/keosd
+programs/kgeneosd/kgeneosd
 programs/nodgeneos/config.hpp
 programs/nodgeneos/nodgeneos
 

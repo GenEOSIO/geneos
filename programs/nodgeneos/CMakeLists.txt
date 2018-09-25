@@ -1,11 +1,11 @@
-add_executable( nodeos main.cpp )
+add_executable( nodgeneos main.cpp )
 if( UNIX AND NOT APPLE )
   set(rt_library rt )
 endif()
 
 find_package( Gperftools QUIET )
 if( GPERFTOOLS_FOUND )
-    message( STATUS "Found gperftools; compiling nodeos with TCMalloc")
+    message( STATUS "Found gperftools; compiling nodgeneos with TCMalloc")
     list( APPEND PLATFORM_SPECIFIC_LIBS tcmalloc )
 endif()
 
@@ -15,20 +15,20 @@ if(EXISTS ${CMAKE_CURRENT_SOURCE_DIR}/../../.git)
     execute_process(
       COMMAND ${GIT_EXECUTABLE} rev-parse --short=8 HEAD
       WORKING_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}/../.."
-      OUTPUT_VARIABLE "nodeos_BUILD_VERSION"
+      OUTPUT_VARIABLE "nodgeneos_BUILD_VERSION"
       ERROR_QUIET
       OUTPUT_STRIP_TRAILING_WHITESPACE)
-    message(STATUS "Git commit revision: ${nodeos_BUILD_VERSION}")
+    message(STATUS "Git commit revision: ${nodgeneos_BUILD_VERSION}")
   else()
-    set(nodeos_BUILD_VERSION 0)
+    set(nodgeneos_BUILD_VERSION 0)
   endif()
 else()
-  set(nodeos_BUILD_VERSION 0)
+  set(nodgeneos_BUILD_VERSION 0)
 endif()
 
 configure_file(config.hpp.in config.hpp ESCAPE_QUOTES)
 
-target_include_directories(nodeos PUBLIC ${CMAKE_CURRENT_BINARY_DIR})
+target_include_directories(nodgeneos PUBLIC ${CMAKE_CURRENT_BINARY_DIR})
 
 if(UNIX)
   if(APPLE)
@@ -43,7 +43,7 @@ else()
   set(no_whole_archive_flag "--no-whole-archive")
 endif()
 
-target_link_libraries( nodeos
+target_link_libraries( nodgeneos
         PRIVATE appbase
         PRIVATE -Wl,${whole_archive_flag} history_plugin             -Wl,${no_whole_archive_flag}
         PRIVATE -Wl,${whole_archive_flag} bnet_plugin             -Wl,${no_whole_archive_flag}
@@ -60,16 +60,16 @@ target_link_libraries( nodeos
         PRIVATE eosio_chain fc ${CMAKE_DL_LIBS} ${PLATFORM_SPECIFIC_LIBS} )
 
 if(TARGET sql_db_plugin)
-  target_link_libraries( nodeos PRIVATE -Wl,${whole_archive_flag} sql_db_plugin -Wl,${no_whole_archive_flag} )
+  target_link_libraries( nodgeneos PRIVATE -Wl,${whole_archive_flag} sql_db_plugin -Wl,${no_whole_archive_flag} )
 endif()
 
 #if(BUILD_MONGO_DB_PLUGIN)
-#  target_link_libraries( nodeos
+#  target_link_libraries( nodgeneos
 #    PRIVATE -Wl,${whole_archive_flag} mongo_db_plugin -Wl,${no_whole_archive_flag} )
 #endif()
 
 install( TARGETS
-   nodeos
+   nodgeneos
 
    RUNTIME DESTINATION ${CMAKE_INSTALL_FULL_BINDIR}
    LIBRARY DESTINATION ${CMAKE_INSTALL_FULL_LIBDIR}
@@ -96,4 +96,4 @@ install(DIRECTORY DESTINATION ${CMAKE_INSTALL_FULL_LOCALSTATEDIR}/lib/eosio
                               WORLD_EXECUTE
 			)
 
-mas_sign(nodeos)
+mas_sign(nodgeneos)

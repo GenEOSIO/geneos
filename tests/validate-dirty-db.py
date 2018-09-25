@@ -8,7 +8,7 @@ import subprocess
 import signal
 
 ###############################################################
-# Test for validating the dirty db flag sticks repeated nodeos restart attempts
+# Test for validating the dirty db flag sticks repeated nodgeneos restart attempts
 ###############################################################
 
 
@@ -26,7 +26,7 @@ parser.add_argument("--dump-error-details",
                     action='store_true')
 parser.add_argument("--keep-logs", help="Don't delete var/lib/node_* folders upon test completion",
                     action='store_true')
-parser.add_argument("--clean-run", help="Kill all nodeos and kleos instances", action='store_true')
+parser.add_argument("--clean-run", help="Kill all nodgeneos and kleos instances", action='store_true')
 
 args = parser.parse_args()
 debug=args.v
@@ -48,9 +48,9 @@ testUtils.Utils.Debug=debug
 testSuccessful=False
 
 def runNodeosAndGetOutput(myNodeId, myTimeout=3):
-    """Startup nodeos, wait for timeout (before forced shutdown) and collect output. Stdout, stderr and return code are returned in a dictionary."""
-    Print("Launching nodeos process id: %d" % (myNodeId))
-    cmd="programs/nodeos/nodeos --config-dir etc/eosio/node_bios --data-dir var/lib/node_bios"
+    """Startup nodgeneos, wait for timeout (before forced shutdown) and collect output. Stdout, stderr and return code are returned in a dictionary."""
+    Print("Launching nodgeneos process id: %d" % (myNodeId))
+    cmd="programs/nodgeneos/nodgeneos --config-dir etc/eosio/node_bios --data-dir var/lib/node_bios"
     Print("cmd: %s" % (cmd))
     proc=subprocess.Popen(cmd.split(), stdout=subprocess.PIPE, stderr=subprocess.PIPE)
 
@@ -61,7 +61,7 @@ def runNodeosAndGetOutput(myNodeId, myTimeout=3):
         output["stderr"] = errs.decode("utf-8")
         output["returncode"] = proc.returncode
     except (subprocess.TimeoutExpired) as _:
-        Print("ERROR: Nodeos is running beyond the defined wait time. Hard killing nodeos instance.")
+        Print("ERROR: Nodeos is running beyond the defined wait time. Hard killing nodgeneos instance.")
         proc.send_signal(signal.SIGKILL)
         return (False, None)
 
@@ -90,7 +90,7 @@ try:
     Print("Kill cluster nodes.")
     cluster.killall(allInstances=killAll)
     
-    Print("Restart nodeos repeatedly to ensure dirty database flag sticks.")
+    Print("Restart nodgeneos repeatedly to ensure dirty database flag sticks.")
     nodeId=0
     timeout=3
     

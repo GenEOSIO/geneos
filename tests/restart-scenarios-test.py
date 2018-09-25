@@ -15,7 +15,7 @@ import traceback
 # -d <delay between nodes startup>
 # -v <verbose logging>
 # --kill-sig <kill signal [term|kill]>
-# --kill-count <nodeos instances to kill>
+# --kill-count <nodgeneos instances to kill>
 # --dont-kill <Leave cluster running after test finishes>
 # --dump-error-details <Upon error print etc/eosio/node_*/config.ini and var/lib/node_*/stderr.log to stdout>
 # --keep-logs <Don't delete var/lib/node_* folders upon test completion>
@@ -38,7 +38,7 @@ parser.add_argument("-c", type=str, help="chain strategy",
                     default=testUtils.Utils.SyncResyncTag)
 parser.add_argument("--kill-sig", type=str, choices=[testUtils.Utils.SigKillTag, testUtils.Utils.SigTermTag], help="kill signal.",
                     default=testUtils.Utils.SigKillTag)
-parser.add_argument("--kill-count", type=int, help="nodeos instances to kill", default=-1)
+parser.add_argument("--kill-count", type=int, help="nodgeneos instances to kill", default=-1)
 parser.add_argument("-v", help="verbose logging", action='store_true')
 parser.add_argument("--leave-running", help="Leave cluster running after test finishes", action='store_true')
 parser.add_argument("--dump-error-details",
@@ -46,7 +46,7 @@ parser.add_argument("--dump-error-details",
                     action='store_true')
 parser.add_argument("--keep-logs", help="Don't delete var/lib/node_* folders upon test completion",
                     action='store_true')
-parser.add_argument("--clean-run", help="Kill all nodeos and kleos instances", action='store_true')
+parser.add_argument("--clean-run", help="Kill all nodgeneos and kleos instances", action='store_true')
 parser.add_argument("--p2p-plugin", choices=["net", "bnet"], help="select a p2p plugin to use. Defaults to net.", default="net")
 
 args = parser.parse_args()
@@ -128,7 +128,7 @@ try:
     Print("Kill %d cluster node instances." % (killCount))
     if cluster.killSomeEosInstances(killCount, killSignal) is False:
         errorExit("Failed to kill Eos instances")
-    Print("nodeos instances killed.")
+    Print("nodgeneos instances killed.")
 
     Print("Spread funds and validate")
     if not cluster.spreadFundsAndValidate(10):
@@ -141,7 +141,7 @@ try:
     Print ("Relaunch dead cluster nodes instances.")
     if cluster.relaunchEosInstances() is False:
         errorExit("Failed to relaunch Eos instances")
-    Print("nodeos instances relaunched.")
+    Print("nodgeneos instances relaunched.")
 
     Print ("Resyncing cluster nodes.")
     if not cluster.waitOnClusterSync():

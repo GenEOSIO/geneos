@@ -7,7 +7,7 @@ import argparse
 import re
 
 ###############################################################
-# nodeos_run_test
+# nodgeneos_run_test
 # --dump-error-details <Upon error print etc/eosio/node_*/config.ini and var/lib/node_*/stderr.log to stdout>
 # --keep-logs <Don't delete var/lib/node_* folders upon test completion>
 ###############################################################
@@ -51,7 +51,7 @@ parser.add_argument("--keep-logs", help="Don't delete var/lib/node_* folders upo
 parser.add_argument("-v", help="verbose logging", action='store_true')
 parser.add_argument("--leave-running", help="Leave cluster running after test finishes", action='store_true')
 parser.add_argument("--only-bios", help="Limit testing to bios node.", action='store_true')
-parser.add_argument("--clean-run", help="Kill all nodeos and kleos instances", action='store_true')
+parser.add_argument("--clean-run", help="Kill all nodgeneos and kleos instances", action='store_true')
 
 args = parser.parse_args()
 testOutputFile=args.output

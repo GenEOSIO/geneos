@@ -6,8 +6,8 @@
 
 connected="0"
 
-rundir=programs/nodeos
-prog=nodeos
+rundir=programs/nodgeneos
+prog=nodgeneos
 
 
 if [ "$PWD" != "$EOSIO_HOME" ]; then
@@ -16,7 +16,7 @@ if [ "$PWD" != "$EOSIO_HOME" ]; then
 fi
 
 if [ ! -e $rundir/$prog ]; then
-    echo unable to locate binary for nodeos
+    echo unable to locate binary for nodgeneos
     exit -1
 fi
 
